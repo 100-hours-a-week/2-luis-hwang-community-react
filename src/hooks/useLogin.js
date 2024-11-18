@@ -3,30 +3,27 @@ import { useState, useCallback, useMemo } from 'react'
 import { sendLogin } from '../api/user'
 import { checkEmail, checkPassword } from '../utils/utils'
 import { useNavigate } from 'react-router-dom'
+import { useSessionStore } from '../store/user'
 
 const useLogin = () => {
   const [emailInput, setEmailInput] = useState('')
   const [passwordInput, setPasswordInput] = useState('')
+  const { setSession } = useSessionStore()
   const navigate = useNavigate()
 
   /* 로그인 요청 */
-  const { mutate, isLoading } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: sendLogin,
-    onMutate: () => {
-      console.log('mutation 실행 전')
-    },
     onSuccess: (data) => {
-      console.log(data)
-      setEmailInput('')
-      setPasswordInput('')
-      navigate('/')
+      if (data) {
+        setEmailInput('')
+        setPasswordInput('')
+        setSession({ email: data.email, sid: data.sid })
+        navigate('/')
+      }
     },
     onError: (error) => {
-      alert('로그인에 실패하였습니다.')
-      console.log('FAIL')
-    },
-    onSettled: () => {
-      console.log('finally처럼 마지막에 실행')
+      alert('로그인에 실패하였습니다.' + error)
     },
   })
 
@@ -44,15 +41,29 @@ const useLogin = () => {
     [emailInput, passwordInput],
   )
 
-  /* 비밀번호 안내 텍스트 */
+  const isValidEmail = useMemo(() => checkEmail(emailInput), [emailInput])
+  const isValidPassword = useMemo(() => checkPassword(passwordInput), [passwordInput])
+
+  /* 헬퍼 텍스트 */
+  const emailHelperText = useMemo(
+    () => (checkEmail(emailInput) ? '올바른 이메일입니다.' : '올바른 이메일 형식을 입력해주세요'),
+    [emailInput],
+  )
+
   const passwordHelperText = useMemo(
-    () => (checkPassword(passwordInput) ? '' : '대/소문자, 숫자, 특수문자를 포함해주세요.'),
+    () =>
+      checkPassword(passwordInput)
+        ? '올바른 비밀번호입니다.'
+        : '대/소문자, 숫자, 특수문자를 포함해주세요.',
     [passwordInput],
   )
 
   return {
-    isLoading,
+    isPending,
     isValid,
+    isValidEmail,
+    isValidPassword,
+    emailHelperText,
     passwordHelperText,
     handleEmailInput,
     handlePasswordInput,

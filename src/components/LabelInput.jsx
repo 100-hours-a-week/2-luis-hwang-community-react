@@ -1,7 +1,8 @@
-const LabelInput = ({ labelName, inputType, placeholder, helperText, onChange }) => {
+const LabelInput = ({ labelName, inputType, placeholder, isValid, helperText, onChange }) => {
+  // prettier-ignore
   const helperTextClassName = [
-    'text-red-500 text-[14px] h-3',
-    helperText ? 'visible' : 'invisible',
+    'text-[14px] h-3',
+    isValid ? 'text-green-500' : 'text-red-500'
   ].join(' ')
 
   return (

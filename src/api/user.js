@@ -11,5 +11,5 @@ export const sendLogin = async ({ email, password }) => {
     return Promise.reject()
   }
 
-  return Promise.resolve()
+  return Promise.resolve(res.data)
 }
