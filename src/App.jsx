@@ -25,9 +25,9 @@ function App() {
           <Route element={<Layout />}>
             <Route element={<PrivateRoute />}>
               <Route index element={<BoardList />} />
-              <Route path='/board/add' element={<BoardAdd />} />
-              <Route path='/board/:boardId' element={<BoardDetail />} />
-              <Route path='/board/edit/:boardId' element={<BoardEdit />} />
+              <Route path='/boards/add' element={<BoardAdd />} />
+              <Route path='/boards/:boardId' element={<BoardDetail />} />
+              <Route path='/boards/edit/:boardId' element={<BoardEdit />} />
             </Route>
 
             <Route path='/login' element={<Login />} />

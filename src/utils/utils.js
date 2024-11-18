@@ -17,7 +17,7 @@ export function checkEmail(email) {
  * @description 8자 ~ 20자 길이, 대/소문자, 숫자, 특수문자 최소 1개 이상 포함
  */
 export function checkPassword(password) {
-  if (password.length < 0 || password.length > 20) {
+  if (password.length < 8 || password.length > 20) {
     return false
   }
 

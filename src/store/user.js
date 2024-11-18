@@ -2,7 +2,7 @@ import { create } from 'zustand'
 
 /**
  * 유저 상태를 전역으로 관리
- * -> 추후 배포 이후 https 적용하고 쿠키 기반으로 변경해야 함
+ * -> 추후 배포 및 https 적용하고 쿠키 기반으로 변경 예정
  */
 export const useSessionStore = create((set, get) => ({
   session: {

@@ -24,7 +24,7 @@ const Login = () => {
   ].join(' ')
 
   return (
-    <div className='mb-24'>
+    <div className='mb-24 mt-[120px]'>
       {isPending && <Loading />}
       <h1 className='text-3xl font-bold text-center mb-12'>로그인</h1>
       <form onSubmit={handleOnSubmit} className='flex flex-col gap-y-6'>
