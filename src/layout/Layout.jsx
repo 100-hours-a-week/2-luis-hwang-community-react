@@ -1,25 +1,35 @@
-import { useState, useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
+import { useMemo } from 'react'
+import { Outlet, useLocation } from 'react-router-dom'
+import UserAvatarDropdown from '../components/UserAvatarDropdown'
+
+const DO_NOT_SHOW_DROPDOWN = ['/login', '/signup']
 
 const Layout = () => {
-  const [headerHeight, setHeaderHeight] = useState(0)
+  const { pathname } = useLocation()
 
-  useEffect(() => {
-    const header = document.getElementById('header')
-    if (header) setHeaderHeight(header.offsetHeight)
-  }, [])
+  const showDropdown = useMemo(
+    () => DO_NOT_SHOW_DROPDOWN.find((path) => path === pathname) === undefined,
+    [pathname],
+  )
 
   return (
-    <div className='h-screen'>
-      <header id='header' className='py-6 h-20 font-semibold text-3xl font-serif text-center'>
-        아무 말 대잔치
+    <div className='h-screen min-w-[600px]'>
+      <header className='py-6 h-20 w-full relative'>
+        <h1 className='font-semibold text-3xl font-serif text-center absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2'>
+          아무 말 대잔치
+        </h1>
+        {showDropdown && (
+          <UserAvatarDropdown
+            radius='52px'
+            imgSrc='https://seungsuhwang-portfolio.s3.ap-northeast-2.amazonaws.com/h970126%40gmail+(01-02).jpg'
+            className='absolute left-[calc(50%+240px)] top-1/2 transform -translate-y-1/2'
+          />
+        )}
       </header>
+
       <hr className='border-gray-200 border-y-2' />
 
-      <main
-        style={{ height: `calc(100vh - ${headerHeight + 5}px)` }}
-        className='flex flex-col justify-center items-center'
-      >
+      <main className='flex flex-col justify-center items-center mt-[40px] w-full'>
         <Outlet />
       </main>
     </div>

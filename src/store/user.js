@@ -1,6 +1,9 @@
 import { create } from 'zustand'
 
-/* 유저 상태를 전역으로 관리 */
+/**
+ * 유저 상태를 전역으로 관리
+ * -> 추후 배포 이후 https 적용하고 쿠키 기반으로 변경해야 함
+ */
 export const useSessionStore = create((set, get) => ({
   session: {
     sid: localStorage.getItem('sid'),

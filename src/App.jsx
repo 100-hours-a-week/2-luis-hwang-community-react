@@ -8,6 +8,7 @@ import NotFound from './pages/NotFound'
 import Signup from './pages/Signup'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import PrivateRoute from './routes/PrivateRoute'
+import BoardAdd from './pages/BoardAdd'
 
 const queryClient = new QueryClient()
 
@@ -24,7 +25,8 @@ function App() {
           <Route element={<Layout />}>
             <Route element={<PrivateRoute />}>
               <Route index element={<BoardList />} />
-              <Route path='/board:boardId' element={<BoardDetail />} />
+              <Route path='/board/add' element={<BoardAdd />} />
+              <Route path='/board/:boardId' element={<BoardDetail />} />
               <Route path='/board/edit/:boardId' element={<BoardEdit />} />
             </Route>
 
