@@ -1,5 +1,4 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { fetchBoardList } from '../api/board'
 
@@ -15,13 +14,10 @@ const useBoard = () => {
   })
 
   /* 게시글 추가 버튼 클릭 핸들러 */
-  const handleBoardAddBtnClick = useCallback(
-    (e) => {
-      e.preventDefault()
-      navigate('/boards/add')
-    },
-    [navigate],
-  )
+  const handleBoardAddBtnClick = (e) => {
+    e.preventDefault()
+    navigate('/boards/add')
+  }
 
   return {
     boardList: data?.pages.flatMap((page) => page.data) || [],

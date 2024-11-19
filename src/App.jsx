@@ -9,6 +9,7 @@ import Signup from './pages/Signup'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import PrivateRoute from './routes/PrivateRoute'
 import BoardAdd from './pages/BoardAdd'
+import Logout from './pages/Logout'
 
 const queryClient = new QueryClient()
 
@@ -31,6 +32,7 @@ function App() {
             </Route>
 
             <Route path='/login' element={<Login />} />
+            <Route path='/logout' element={<Logout />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='*' element={<NotFound />} />
           </Route>

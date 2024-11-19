@@ -6,11 +6,13 @@ import axiosInstance from '.'
 /* 로그인 요청 */
 export const sendLogin = async ({ email, password }) => {
   const res = await axiosInstance.post('/login', { email, password })
-
-  // 로그인 실패
-  if (res.status !== HttpStatusCode.Ok) {
-    return Promise.reject()
-  }
-
+  if (res.status !== HttpStatusCode.Ok) return Promise.reject()
   return Promise.resolve(res.data)
+}
+
+/* 로그아웃 요청 */
+export const sendLogout = async ({ sid }) => {
+  const res = await axiosInstance.post('/logout', { sid })
+  if (res.status !== HttpStatusCode.Ok) return Promise.reject()
+  return Promise.resolve()
 }
